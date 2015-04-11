@@ -1,0 +1,45 @@
+<html>
+<head>
+    <title>Silverado Cinemas</title>
+    
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:600' rel='stylesheet' type='text/css'>
+    <link href="style.css" rel="stylesheet" />
+    </head>
+    <body>
+    <div id="nav">
+        <div id="heading"><a href="/">Silverado Cinemas</a></div>
+        <a id="toggleham" class="hamburger" href="#">
+                <div class="hamwrapper">
+                    <div class="hamline"></div>
+                    <div class="hamline"></div>
+                    <div class="hamline"></div>
+                </div>
+        </a>
+        <div id="dropdown">
+                <a href="/">Home</a>
+                <a href="#">About</a>
+                <a href="#">Contact</a>
+        </div>
+    </div>
+        <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+        <script>
+            var closeDropdown = false;
+            $(function(){
+                $("#toggleham").click(function(){
+                    $("#dropdown").toggle("fast");
+                });
+                $(window).resize(function(){
+                    if($(window).width() >= 768){
+                        $("#dropdown").show("fast");
+                        closeDropdown = true;
+                    } else {
+                        if(closeDropdown == true){
+                            closeDropdown = false;
+                            $("#dropdown").css({display: "none"});
+                        }
+                    }
+                });
+            });
+        </script>
+</body>
+</html>
