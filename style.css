@@ -10,6 +10,7 @@ body{
     top: 0;
     height: 60px;
     background-color: #b9da55;
+    z-index: 99;
 }
 
 .blanknav{
@@ -87,6 +88,10 @@ body{
 
 .hamburger:active{
     background-color: #E6F9AE;
+}
+
+.hamburger:hover{
+    transform: rotate(90deg);
 }
 
 .hamwrapper{
@@ -200,6 +205,7 @@ body{
     #menu a:hover{
         background-color: #E6F9AE;
     }
+
     
     .footer{
         bottom: 0px;
@@ -210,4 +216,156 @@ body{
     }
     
     
+}
+
+#movies{
+    padding-top: 70px;
+    width: 90%;
+    margin: 0px auto;
+    margin-bottom: 20px;
+}
+
+.movie{
+    background-color: #E6F9AE;
+    border-radius: 4px;
+    padding: 10px;
+    min-height: 128px;
+    position: relative;
+}
+
+.movie:hover{
+    background-color: #b9da55;
+}
+
+.genre{
+    padding: 10px 10px 10px 0px;
+    text-decoration-line: underline;
+    font-size: 18px;
+    color: grey;
+}
+
+.movie .image{
+    width: 128px;
+    height: 128px;
+    float: left;
+    margin-right: 10px;
+}
+
+.movie .info{
+    min-height: 128px;
+}
+
+.movie .info .title{
+    font-size: 20;
+    font-weight: 600;
+    margin-left: 138px;
+}
+
+.movie .info .desc{
+    margin-left: 138px;
+    padding-top: 10px;
+    padding-right: 10px;
+}
+
+.movie .info .showtimes{
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 10px;
+    background-color: black;
+    padding: 7px;
+    border-radius: 4px;
+    color: white;
+    text-decoration: none;
+}
+.movie .info .showtimes:hover{
+    background-color: #333;
+}
+
+.times{
+    position: relative;
+    display: none;
+    background-color: #bada55;
+    margin-top: 10px;
+    padding: 5px;
+    border-radius: 3px;
+    text-align: center;
+}
+
+.days{
+    padding-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.day{
+    display: inline-block;
+    padding: 5px;
+    margin: 5px;
+    transition: all 0.4s ease;
+    border-radius: 4px;
+}
+
+.day:hover{
+    background-color: #efefef;
+    
+}
+
+.time{
+    margin-top: 5px;
+    display: block;
+    transition: all 0.3s ease;
+}
+
+
+.tickets{
+    display: none;
+}
+
+select{
+    max-width: 50px;
+}
+
+.selectors{
+    min-height: 100px;
+    display: inline-block;
+    text-align: center;
+}
+
+.sub{
+    display: inline-block;
+    padding: 20px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.sub span{
+    font-weight: 600;
+}
+
+.sub label{
+    display: block;
+    margin-top: 4px;
+}
+
+.go{
+    
+}
+
+.total{
+    font-size: 30px;
+}
+
+.totalText{
+    font-weight: 600;
+}
+
+.cheap{
+    background-color: lightblue;
+}
+
+.nosesh{
+    background-color: lightcoral;
 }
