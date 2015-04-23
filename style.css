@@ -4,13 +4,19 @@ body{
 }
 
 #nav{
-    position: absolute;
+    position: fixed;
+    z-index: 3;
     width: 100%;
+    top: 0;
     height: 60px;
     background-color: #b9da55;
 }
 
-#dropdown{
+.blanknav{
+    margin-top: 60px;
+}
+
+#menu{
     display: none;
     position: absolute;
     top: 60px;
@@ -24,7 +30,7 @@ body{
     border-left: 3px solid #b9da55;
 }
 
-#dropdown a{
+#menu a{
     display: block;
     padding: 10px;
     text-decoration: none;
@@ -35,22 +41,25 @@ body{
     transition: background-color 0.3s ease-out;
 }
 
-#dropdown a:hover{
+#menu a:hover{
     background-color: #B9DA55;
 }
 
-#dropdown a:active{
+#menu a:active{
     background-color: #B9DA55;
 }
 
 #heading{
     padding: 10px;
+    padding-top: 7.5px;
     padding-left: 15px;
     color: white;
     font-weight: 600;
     font-size: 32px;
     font-family: 'Open Sans', sans-serif;
     margin-right: 60px;
+    max-height: 60px;
+    overflow: hidden;
 }
 
 #heading a{
@@ -67,6 +76,13 @@ body{
     height: 45px;
     width: 45px;
     border-radius: 2px;
+    transition: transform 0.2s linear;
+    -webkit-transition: transform 0.2s linear;
+}
+
+.hamburger:hover{
+    transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
 }
 
 .hamburger:active{
@@ -84,12 +100,83 @@ body{
     border-radius: 5px;
 }
 
+.margin-top{
+    padding-top: 20px;
+}
+
+.content{
+    min-height: 700px;
+    width: 100%;
+    background-color: lightgrey;
+    border-radius: 3px;
+    margin-bottom: 15px;
+}
+
+#container{
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-bottom: 40px;
+}
+
+.specialContainer{
+    background-color: #697EB4;
+    padding: 10px;
+    border-radius: 3px;
+}
+
+.special{
+    position: relative;
+    width: 100%;
+    height: auto;
+    margin-bottom: 15px;
+    border-radius: 3px;
+}
+
+#beanbagHeading{
+    position: relative;
+    top: 0;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 20;
+    font-weight: 900;
+}
+
+#beanbag{
+    border-radius: 3px;
+}
+
+#news{
+    margin-bottom: 15px;
+    min-height: 340px;
+    border-radius: 3px;
+    background-color: lightgray;
+}
+
+.footer{
+    position: fixed;
+    bottom: 0;
+    height: 40px;
+    width: 100%;
+    background-color: #B9DA55;
+    text-align: center;
+    padding: 10px;
+}
+
+.footerText{
+    font-family: 'Open Sans', sans-serif;
+}
+
+
 @media screen and (min-width: 768px){
     .hamburger{
         display: none;
     }
     
-    #dropdown{
+    #container{
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    
+    #menu{
         display: inline;
         position: absolute;
         right: 10;
@@ -101,7 +188,7 @@ body{
         background-color: inherit;
     }
     
-    #dropdown a{
+    #menu a{
         display: inline;
         border: none;
         background-color: #D8F482;
@@ -110,7 +197,17 @@ body{
         padding-top: 5px;
     }
     
-    #dropdown a:hover{
+    #menu a:hover{
         background-color: #E6F9AE;
     }
+    
+    .footer{
+        bottom: 0px;
+    }
+    
+    #heading{
+        margin-right: 300px;
+    }
+    
+    
 }

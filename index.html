@@ -1,8 +1,10 @@
 <html>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Silverado Cinemas</title>
     
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:600' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:600' rel='stylesheet' type='text/css'>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
     <link href="style.css" rel="stylesheet" />
     </head>
     <body>
@@ -15,27 +17,60 @@
                     <div class="hamline"></div>
                 </div>
         </a>
-        <div id="dropdown">
+        <div id="menu">
                 <a href="/">Home</a>
-                <a href="#">About</a>
+                <a href="#">Movies</a>
                 <a href="#">Contact</a>
+                <a href="#">About</a>
         </div>
     </div>
-        <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+        <div class="blanknav"></div>
+        <div class="margin-top"></div>
+        <div class="container" id="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-8">
+                    <div class="content"></div>
+                </div>
+                <div class="col-xs-12 col-sm-4">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div id="news"></div>
+                        </div>
+                        <div class="col-xs-12">
+                            <div class="specialContainer">
+                                <div class="special">
+                                    <div id="beanbagHeading">Sink in and relax with your family in our brand new beanbags!</div>
+                                </div>
+                                <div class="special">
+                                    <img class="img-responsive center-block" src="img/beanbag.jpg" id="beanbag"/>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+        <span class="footerText">&copy; Silverado Cinemas, 2015</span>
+        </div>
+        <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <script>
             var closeDropdown = false;
             $(function(){
                 $("#toggleham").click(function(){
-                    $("#dropdown").toggle("fast");
+                    $("#menu").toggle("fast");
                 });
                 $(window).resize(function(){
                     if($(window).width() >= 768){
-                        $("#dropdown").show("fast");
+                        $("#menu").show("fast");
                         closeDropdown = true;
                     } else {
                         if(closeDropdown == true){
                             closeDropdown = false;
-                            $("#dropdown").css({display: "none"});
+                            $("#menu").css({display: "none"});
                         }
                     }
                 });
