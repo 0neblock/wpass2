@@ -24,13 +24,13 @@
                     <div class="hamline"></div>
                 </div>
         </a>
-        <div id="dropdown">
+        <div id="menu">
                 <a href="/">Home</a>
                 <a href="/movies.php">Movies</a>
-                <a href="#">About</a>
-                <a href="#">Contact</a>
+                <a href="/contact.html">Contact</a>
         </div>
     </div>
+        
         <div id="movies">
             <?php
     $movies = array();
@@ -55,6 +55,8 @@ $orphanage = array("genre" => "Foreign", "id" => "AF", "img" => "orphanage.jpg",
                     <a href="#"><div  data-genre="Family" class="showtimes">Showing Times</div></a>
                 </div>
                 <div class="times">
+                    <div class="legend"><div class="cheapTix">Cheap Tickets</div><div class="noTix">No Showings</div></div>
+                    <br />
                     <div class="days">
                         <?php
                         for($j = 0; $j < 7; $j++){
@@ -75,19 +77,19 @@ $orphanage = array("genre" => "Foreign", "id" => "AF", "img" => "orphanage.jpg",
                             <div class="selectors">
                                 <div class="sub"><span>Adults</span>
                                     
-                                <label>Standard: <select name="SA"><?php getOptions(5); ?></select></label>
-                                <label>First Class: <select name="FA"><?php getOptions(5); ?></select></label>
+                                <label>Standard: <select name="SA" class="SA"><?php getOptions(5); ?></select> $<span class="price"></span></label>
+                                <label>First Class: <select name="FA" class="FA"><?php getOptions(5); ?></select> $<span class="price"></span></label>
                                 </div>
                                 <div class="sub"><span>Children/Concession</span>
-                                <label>Child Standard: <select name="SC"><?php getOptions(5); ?></select></label>
-                                <label>Child First Class: <select name="FC"><?php getOptions(5); ?></select></label>
-                                <label>Concession Standard: <select name="SP"><?php getOptions(5); ?></select></label>
+                                <label>Child Standard: <select name="SC" class="SC"><?php getOptions(5); ?></select> $<span class="price"></span></label>
+                                <label>Child First Class: <select name="FC" class="FC"><?php getOptions(5); ?></select> $<span class="price"></span></label>
+                                <label>Concession Standard: <select name="SP" class="SP"><?php getOptions(5); ?></select> $<span class="price"></span></label>
                                 
                                 </div>
                                 <div class="sub"><span>Beanbags!</span>
-                                    <label>For One: <select name="B1"><?php getOptions(5); ?></select></label>
-                                    <label>For Two: <select name="B2"><?php getOptions(5); ?></select></label>
-                                    <label>For Three: <select name="B3"><?php getOptions(5); ?></select></label>
+                                    <label>For One: <select name="B1" class="B1"><?php getOptions(5); ?></select> $<span class="price"></span></label>
+                                    <label>For Two: <select name="B2" class="B2"><?php getOptions(5); ?></select> $<span class="price"></span></label>
+                                    <label>For Three: <select name="B3" class="B3"><?php getOptions(5); ?></select> $<span class="price"></span></label>
                                 </div>
                             </div>
                             <div class="total"><span class="totalText">Total:</span> $<span class="rawTotal">0.00</span><input type="hidden" name="price" class="rawTotal" value="0.00"/></div>
@@ -99,7 +101,9 @@ $orphanage = array("genre" => "Foreign", "id" => "AF", "img" => "orphanage.jpg",
                 </div>
             </div>
 <?php } ?>
+            
         </div>
+        
         <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
         <script>
             var closeDropdown = false;
@@ -125,16 +129,17 @@ $orphanage = array("genre" => "Foreign", "id" => "AF", "img" => "orphanage.jpg",
             $(function(){
                 $("select").change(function(){
                     var total = 0.0;
-                    var day = $(this).parents("form").find(".formDay");
-                        var time = $(this).parents("form").find(".formTime");
-                        var cheap = false;
-                        if(day == "Monday" || day == "Tuesday" || time == "1pm"){
-                            cheap = true;
-                        }
+                    var day = $(this).parents("form").find(".formDay").val();
+                    var time = $(this).parents("form").find(".formTime").val();
+                    var cheap = false;
+                    if(day == "Monday" || day == "Tuesday" || time == "1pm"){
+                        cheap = true;
+                    }
                     $(this).parents(".selectors").find("select").each(function(index, option){
                         var temp = cheap ? prices.cheap : prices.normal;
                         for(var i = 0; i < temp.length; i++){
                             if($(this).attr("name") in temp[i]){
+                                
                                 total += temp[i][$(this).attr("name")] * $(this).val();
                             }
                         }
@@ -168,6 +173,19 @@ $orphanage = array("genre" => "Foreign", "id" => "AF", "img" => "orphanage.jpg",
                     tickets.find(".formDay").val($(this).find(".time").attr("data-day"));
                     tickets.find(".formTime").val($(this).find(".time").html());
                     tickets.find(".bookingDay").html($(this).find(".time").attr("data-day"));
+                    
+                    var cheap = false;
+                        if(tickets.find(".bookingDay").html() == "Monday" || tickets.find(".bookingDay").html() == "Tuesday" || tickets.find(".formTime").val() == "1pm"){
+                            cheap = true;
+                        }
+                    var temp = cheap ? prices.cheap : prices.normal;
+                    tickets.find("select").each(function(){
+                        for(var i = 0; i < 8; i++){
+                            if($(this).attr("name") in temp[i]){
+                                $(this).parents("label").find(".price").html(temp[i][$(this).attr("name")]);
+                            }
+                        }
+                    });
                     tickets.show("fast");
                 });
                 $(".movie").hover(function(){
@@ -178,16 +196,16 @@ $orphanage = array("genre" => "Foreign", "id" => "AF", "img" => "orphanage.jpg",
                     $(this).find(".showtimes").hide();
                 });
                 $("#toggleham").click(function(){
-                    $("#dropdown").toggle("fast");
+                    $("#menu").toggle("fast");
                 });
                 $(window).resize(function(){
                     if($(window).width() >= 768){
-                        $("#dropdown").show("fast");
+                        $("#menu").show("fast");
                         closeDropdown = true;
                     } else {
                         if(closeDropdown == true){
                             closeDropdown = false;
-                            $("#dropdown").css({display: "none"});
+                            $("#menu").css({display: "none"});
                         }
                     }
                 });
@@ -195,5 +213,8 @@ $orphanage = array("genre" => "Foreign", "id" => "AF", "img" => "orphanage.jpg",
             
             
         </script>
+        <div class="footer">
+        <span class="footerText">&copy; Silverado Cinemas, 2015</span>
+        </div>
 </body>
 </html>
