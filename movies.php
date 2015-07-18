@@ -6,13 +6,14 @@
     }
 
 ?>
-
+<!DOCTYPE HTML>
 <html>
 <head>
     <title>Silverado Cinemas - Movies</title>
     
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:600' rel='stylesheet' type='text/css'>
     <link href="style.css" rel="stylesheet" />
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
     </head>
     <body>
     <div id="nav">
@@ -25,33 +26,36 @@
                 </div>
         </a>
         <div id="menu">
-                <a href="/">Home</a>
-                <a href="/movies.php">Movies</a>
-                <a href="/contact.html">Contact</a>
+                <a href="index.html">Home</a>
+                <a href="movies.php">Movies</a>
         </div>
     </div>
-        
+        <div class="container">
+            <div class="row">
         <div id="movies">
             <?php
     $movies = array();
-$sponge = array("genre" => "Children", "id" => "CH", "img" => "sponge.jpg", "title" => "Sponge out of water", "desc" => "When a diabolical pirate above the sea steals the secret Krabby Patty formula, SpongeBob and his nemesis Plankton must team up in order to get it back.", "times" => array(13, 13, 18, 18, 18, 12, 12));
-$love = array("genre" => "Romantic Comedy", "id" => "RC", "img" => "love.jpg", "title" => "Love Actually", "desc" => "Follows the lives of eight very different couples in dealing with their love lives in various loosely interrelated tales all set during a frantic month before Christmas in London, England.", "times" => array(21, 21, 13, 13, 13, 18, 18));
-$jurassic = array("genre" => "Action", "id" => "AC", "img" => "jurassic.jpg", "title" => "Jurassic World", "desc" => "Twenty-two years after the events of Jurassic Park (1993), Isla Nublar now features a fully functioning dinosaur theme park, Jurassic World, as originally envisioned by John Hammond. After 10 years of operation and visitor rates declining, in order to fulfill a corporate mandate, a new attraction is created to re-spark visitor's interest, which backfires horribly.", "times" => array(0, 0, 21, 21, 21, 21, 21));
-$orphanage = array("genre" => "Foreign", "id" => "AF", "img" => "orphanage.jpg", "title" => "The Orphanage", "desc" => "A woman brings her family back to her childhood home, which used to be an orphanage for handicapped children. Before long, her son starts to communicate with an invisible new friend.", "times" => array(18, 18, 0, 0, 0, 15, 15));
+$sponge = array("genre" => "Children", "id" => "CH", "img" => "sponge.jpg", "title" => "Sponge out of water", "desc" => "When a diabolical pirate above the sea steals the secret Krabby Patty formula, SpongeBob and his nemesis Plankton must team up in order to get it back.", "classification" => "g","times" => array(13, 13, 18, 18, 18, 12, 12));
+$love = array("genre" => "Romantic Comedy", "id" => "RC", "img" => "love.jpg", "title" => "Love Actually", "desc" => "Follows the lives of eight very different couples in dealing with their love lives in various loosely interrelated tales all set during a frantic month before Christmas in London, England.", "classification" => "r", "times" => array(21, 21, 13, 13, 13, 18, 18));
+$jurassic = array("genre" => "Action", "id" => "AC", "img" => "jurassic.jpg", "title" => "Jurassic World", "desc" => "Twenty-two years after the events of Jurassic Park (1993), Isla Nublar now features a fully functioning dinosaur theme park, Jurassic World, as originally envisioned by John Hammond. After 10 years of operation and visitor rates declining, in order to fulfill a corporate mandate, a new attraction is created to re-spark visitor's interest, which backfires horribly.", "classification" => "m", "times" => array(0, 0, 21, 21, 21, 21, 21));
+$orphanage = array("genre" => "Foreign", "id" => "AF", "img" => "orphanage.jpg", "title" => "The Orphanage", "desc" => "A woman brings her family back to her childhood home, which used to be an orphanage for handicapped children. Before long, her son starts to communicate with an invisible new friend.", "classification" => "r", "times" => array(18, 18, 0, 0, 0, 15, 15));
+
+    array_push($movies, $sponge);
     array_push($movies, $love);
     array_push($movies, $jurassic);
     array_push($movies, $orphanage);
-    array_push($movies, $sponge);
 
     $days = array("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday");
 
     for($i = 0; $i < sizeof($movies); $i++){ ?>
+            <div class="col-xs-12 col-md-6">
             <div class="genre"><?php echo $movies[$i]["genre"]; ?>:</div>
             <div class="movie" data-movie="<?php echo $movies[$i]["id"]; ?>" id="<?php echo $movies[$i]["id"]; ?>">
                 <div class="info">
-                    <img class="image" src="images/<?php echo $movies[$i]["img"];?>" />
+                    <img class="image" src="images/<?php echo $movies[$i]["img"];?>" alt="Movie Image"/>
                     <div class="title"><?php echo $movies[$i]["title"];?></div>
                     <div class="desc"><?php echo $movies[$i]["desc"];?></div>
+                    <img class="classification" src="images/<?php echo $movies[$i]["classification"]; ?>.png" alt="Classification"/>
                     <a href="#"><div  data-genre="Family" class="showtimes">Showing Times</div></a>
                 </div>
                 <div class="times">
@@ -100,8 +104,10 @@ $orphanage = array("genre" => "Foreign", "id" => "AF", "img" => "orphanage.jpg",
                     </div>
                 </div>
             </div>
+            </div>
 <?php } ?>
-            
+                </div>
+        </div>
         </div>
         
         <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
@@ -186,6 +192,26 @@ $orphanage = array("genre" => "Foreign", "id" => "AF", "img" => "orphanage.jpg",
                             }
                         }
                     });
+                    tickets.find("form").each(function(){
+                        var total = 0.0;
+                    var day = $(this).find(".formDay").val();
+                    var time = $(this).find(".formTime").val();
+                    var cheap = false;
+                    if(day == "Monday" || day == "Tuesday" || time == "1pm"){
+                        cheap = true;
+                    }
+                    $(this).find(".selectors").find("select").each(function(index, option){
+                        var temp = cheap ? prices.cheap : prices.normal;
+                        for(var i = 0; i < temp.length; i++){
+                            if($(this).attr("name") in temp[i]){
+                                
+                                total += temp[i][$(this).attr("name")] * $(this).val();
+                            }
+                        }
+                    });
+                    $(this).find(".rawTotal").html(total + ".00");
+                    $(this).find(".rawTotal").val(total + ".00");
+                    });
                     tickets.show("fast");
                 });
                 $(".movie").hover(function(){
@@ -214,7 +240,11 @@ $orphanage = array("genre" => "Foreign", "id" => "AF", "img" => "orphanage.jpg",
             
         </script>
         <div class="footer">
-        <span class="footerText">&copy; Silverado Cinemas, 2015</span>
+        <span class="footerText"> &copy; Silverado Cinemas | Site design by Aidan Cyr, s3471910 |
+      <a href="http://validator.w3.org/check?uri=referer"><img style="border:0;height:31px"
+        src="http://www.w3.org/html/logo/downloads/HTML5_Logo_32.png" alt="HTML Validator" /></a> |
+      <a href="http://jigsaw.w3.org/css-validator/check/referer"><img style="border:0; height:31px"
+        src="http://jigsaw.w3.org/css-validator/images/vcss-blue" alt="CSS Validator"/></a></span>
         </div>
 </body>
 </html>
